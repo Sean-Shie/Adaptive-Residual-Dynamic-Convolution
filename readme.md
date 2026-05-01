@@ -72,7 +72,7 @@ self.conv = ARDCConv(in_channels=64, out_channels=128, kernel_size=3, padding=1,
 ```
 
 ### 訓練腳本
-我們在訓練過程中額外啟用了 **RandomFlip**，**RandomCrop**，**MixUp** 與 **CutMix** 資料增強技術，以進一步提升泛化能力 。
+我們在訓練過程中額外啟用了 **Random Horizontal Flip**，**Random Crop**，**MixUp** 與 **CutMix** 資料增強技術，以進一步提升泛化能力 。
 ```bash
 python new_cnn_test.py
 ```
