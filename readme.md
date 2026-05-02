@@ -87,7 +87,7 @@ python train_and_evaluate.py
 ├── models.py                   # ARDConv 算子核心實作及 BaselineCNN (nn.Conv2d)
 ├── checkpoints/
 │   ├── BaselineCNN_best.pth    # 三層標準 CNN 架構的訓練後權重
-│   └── ARDCNN_best.pth        # 使用 ARDConv 的提議架構的訓練後權重
+│   └── ARDCNN_best.pth         # 使用 ARDConv 的提議架構的訓練後權重
 └── data/cifar-10-batches-py    # CIFAR10 資料集
 ```
 
