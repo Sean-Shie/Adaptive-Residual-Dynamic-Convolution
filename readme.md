@@ -83,7 +83,8 @@ python new_cnn_test.py
 
 ## 📂 專案目錄結構
 ```text
-├── new_cnn_test.py             # 主訓練程式碼，ARDC-Conv 算子核心實作及與 nn.Conv2d 的比較
+├── train_and_evaluate.py       # 主訓練與測試的程式碼
+├── models.py                   # ARDC-Conv 算子核心實作及 BaselineCNN (nn.Conv2d)
 ├── checkpoints/
 │   ├── BaselineCNN_best.pth    # 三層標準 CNN 架構的訓練後權重
 │   └── ARDCCNN_best.pth        # 使用 ARDC-Conv 的提議架構的訓練後權重
