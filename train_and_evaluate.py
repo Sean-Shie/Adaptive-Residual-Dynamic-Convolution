@@ -13,7 +13,7 @@ from tqdm import tqdm
 import math
 from typing import Union, Tuple
 import json
-from models import BaselineCNN, ARDC_CNN
+from models import BaselineCNN, ARD_CNN
 
 # =========================
 # Reproducibility
@@ -627,4 +627,4 @@ if __name__=='__main__':
     cfg, trainloader, testloader, criterion = preprocess()
 
     cnn_model = run_experiment(BaselineCNN, "BaselineCNN", cfg, trainloader, testloader, criterion, resume=True, test_only=True)
-    ardccnn_model = run_experiment(ARDC_CNN, "ARDCCNN", cfg, trainloader, testloader, criterion, resume=True, test_only=True)
+    ardcnn_model = run_experiment(ARD_CNN, "ARDCNN", cfg, trainloader, testloader, criterion, resume=True, test_only=True)

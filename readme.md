@@ -1,4 +1,4 @@
-﻿# ARDC-Conv: Adaptive Residual Dynamic Convolution
+﻿# ARDConv: Adaptive Residual Dynamic Convolution
 **用於淺層卷積神經網路之穩定且高效的卷積算子設計**
 
 [![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white)](https://pytorch.org/) 
@@ -6,7 +6,7 @@
 [![Academic](https://img.shields.io/badge/Status-Research-blue.svg)](https://github.com/)
 
 ## 📖 研究摘要
-傳統卷積神經網路（CNNs）往往透過增加深度來提升性能，但這在資源受限的臨床系統或邊緣運算設備上並非首選。本研究提出 **自適應殘差動態卷積 (ARDC-Conv)**，其核心理念在於「**動態校正而非完全動態替換**」。透過將動態卷積核作為輸入依賴的殘差項，結合靜態主幹卷積核，本方法在僅有三層的淺層網路架構下，能顯著提升特徵表徵能力與訓練穩定性。
+傳統卷積神經網路（CNNs）往往透過增加深度來提升性能，但這在資源受限的臨床系統或邊緣運算設備上並非首選。本研究提出 **自適應殘差動態卷積 (ARDConv)**，其核心理念在於「**動態校正而非完全動態替換**」。透過將動態卷積核作為輸入依賴的殘差項，結合靜態主幹卷積核，本方法在僅有三層的淺層網路架構下，能顯著提升特徵表徵能力與訓練穩定性。
 
 <div align="center">
   <img src="./results/ARDC_Conv_Architecture.png" width="100%">
@@ -15,7 +15,7 @@
 ## ✨ 核心設計特性
 
 ### 1. 殘差動態配方 (Residual Dynamic Formulation)
-不同於傳統動態卷積完全依賴路由權重（容易導致訓練不穩定或路由塌陷），ARDC-Conv 採用以下結構：
+不同於傳統動態卷積完全依賴路由權重（容易導致訓練不穩定或路由塌陷），ARDConv 採用以下結構：
 $$W_{eff}(x) = W_{base} + \sum_{k=1}^{K} \alpha_k(x) \cdot \lambda_k \cdot \Delta W_k$$
 * **$W_{base}$**：穩定的靜態基礎卷積核，提供穩定的梯度傳遞路徑。
 * **$\Delta W_k$**：動態殘差卷積核，負責針對輸入樣本進行微小的輸入依賴修正。
@@ -41,17 +41,17 @@ $$W_{eff}(x) = W_{base} + \sum_{k=1}^{K} \alpha_k(x) \cdot \lambda_k \cdot \Delt
 | 模型 (Shallow CNN) | Accuracy | Precision | Recall | F1-score |
 | :--- | :---: | :---: | :---: | :---: |
 | Baseline (Standard Conv2d) | 85.88% | 85.89% | 85.88% | 85.84% |
-| **ARDC-Conv (Ours)** | **90.37%** | **90.36%** | **90.37%** | **90.33%** |
+| **ARDConv (Ours)** | **90.37%** | **90.36%** | **90.37%** | **90.33%** |
 
 *結果顯示，僅透過卷積算子的重新設計，即可帶來 **+4.49%** 的絕對準確率提升 。*
 
 ### 2. 細粒度分類能力提升
-實驗證明，ARDC-Conv 在辨識高度依賴局部紋理特徵的類別時表現尤為優異 ：
+實驗證明，ARDConv 在辨識高度依賴局部紋理特徵的類別時表現尤為優異 ：
 * **鳥類 (Bird)**: **+7.6%**
 * **鹿 (Deer)**: **+7.2%**
 * **貓 (Cat)**: **+6.2%**
 
-這些類別通常需要捕捉細微的邊緣與毛髮結構，ARDC-Conv 的動態修正機制能比靜態卷積更有效地提取這些特徵 。
+這些類別通常需要捕捉細微的邊緣與毛髮結構，ARDConv 的動態修正機制能比靜態卷積更有效地提取這些特徵 。
 
 ---
 
@@ -84,17 +84,17 @@ python train_and_evaluate.py
 ## 📂 專案目錄結構
 ```text
 ├── train_and_evaluate.py       # 主訓練與測試的程式碼
-├── models.py                   # ARDC-Conv 算子核心實作及 BaselineCNN (nn.Conv2d)
+├── models.py                   # ARDConv 算子核心實作及 BaselineCNN (nn.Conv2d)
 ├── checkpoints/
 │   ├── BaselineCNN_best.pth    # 三層標準 CNN 架構的訓練後權重
-│   └── ARDCCNN_best.pth        # 使用 ARDC-Conv 的提議架構的訓練後權重
+│   └── ARDCCNN_best.pth        # 使用 ARDConv 的提議架構的訓練後權重
 └── data/cifar-10-batches-py    # CIFAR10 資料集
 ```
 
 ---
 
 ## 📝 結論與應用潛力
-ARDC-Conv 證明了卷積算子的數學重構在淺層網路中的關鍵性 。透過保留靜態路徑與引入受控動態殘差，本方法達到了效能與穩定性的平衡，非常適合應用於：
+ARDConv 證明了卷積算子的數學重構在淺層網路中的關鍵性 。透過保留靜態路徑與引入受控動態殘差，本方法達到了效能與穩定性的平衡，非常適合應用於：
 1.  **臨床醫療影像分析**：資源受限的診斷設備 。
 2.  **Edge AI**：行動裝置上的即時推論任務 。
 3.  **細粒度影像分類**：需要高度局部自適應能力的視覺任務 。

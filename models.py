@@ -39,7 +39,7 @@ class BaselineCNN(nn.Module):
 def pair(x):
     return x if isinstance(x, tuple) else (x, x)
 
-class ARDC_Conv(nn.Module):
+class ARDConv(nn.Module):
     """
     Adaptive Residual Dynamic Convolution
 
@@ -299,22 +299,22 @@ class ARDC_Conv(nn.Module):
 
         return out
 
-class ARDC_CNN(nn.Module):
+class ARD_CNN(nn.Module):
     def __init__(self):
         super().__init__()
 
         self.features = nn.Sequential(
-            ARDC_Conv(3, 64, 3, padding=1),
+            ARDConv(3, 64, 3, padding=1),
             nn.BatchNorm2d(64),
             nn.ReLU(),
             nn.MaxPool2d(2),
 
-            ARDC_Conv(64, 128, 3, padding=1),
+            ARDConv(64, 128, 3, padding=1),
             nn.BatchNorm2d(128),
             nn.ReLU(),
             nn.MaxPool2d(2),
 
-            ARDC_Conv(128, 256, 3, padding=1),
+            ARDConv(128, 256, 3, padding=1),
             nn.BatchNorm2d(256),
             nn.ReLU(),
             nn.AdaptiveAvgPool2d(1)
