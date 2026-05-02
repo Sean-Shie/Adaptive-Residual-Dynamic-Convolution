@@ -63,14 +63,14 @@ $$W_{eff}(x) = W_{base} + \sum_{k=1}^{K} \alpha_k(x) \cdot \lambda_k \cdot \Delt
 * Torchvision
 
 ### 核心模塊實作範例
-您可以在 `models.py` 中找到 `ARDC_Conv` 的具體實作。以下為其呼叫方式：
+您可以在 `models.py` 中找到 `ARDConv` 的具體實作。以下為其呼叫方式：
 
 ```python
-from models import ARDC_Conv
+from models import ARDConv
 
 # 替換標準的 nn.Conv2d
 # in_channels=64, out_channels=128, kernel_size=3
-self.conv = ARDC_Conv(in_channels=64, out_channels=128, kernel_size=3, padding=1)
+self.conv = ARDConv(in_channels=64, out_channels=128, kernel_size=3, padding=1)
 ```
 
 ### 訓練腳本
