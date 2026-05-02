@@ -102,6 +102,9 @@ ARDC-Conv 證明了卷積算子的數學重構在淺層網路中的關鍵性 。
 ---
 
 ## 📚 參考文獻
-* [1] LeCun Y, et al. Gradient-Based Learning Applied to Document Recognition. (1998) .
-* [2] Krizhevsky A. Learning multiple layers of features from tiny images. (2009) .
-* [3] Chen Y, et al. Dynamic Convolution: Attention Over Convolution Kernels. CVPR (2020).
+* [1]	LeCun Y, Bottou L, Bengio Y et al: Gradient-Based Learning Applied to Document Recognition. In: Proceedings of the IEEE. vol. 86; 1998: 2278--2324.
+* [2]	Krizhevsky A, Hinton G: Learning multiple layers of features from tiny images. In.; 2009.
+* [3]	Brabandere BD, Jia X, Tuytelaars T et al: Dynamic filter networks. In: Proceedings of the 30th International Conference on Neural Information Processing Systems. Barcelona, Spain: Curran Associates Inc.; 2016: 667–675.
+* [4]	Yang B, Bender G, Le QV et al: CondConv: conditionally parameterized convolutions for efficient inference. Red Hook, NY: Curran Associates Inc.; 2019.
+* [5]	Chen Y, Dai X, Liu M et al: Dynamic Convolution: Attention Over Convolution Kernels. In: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR). 2020.
+* [6]	Hou Q, Zhou D, Feng J: Coordinate Attention for Efficient Mobile Network Design. In: 2021 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR): 20-25 June 2021 2021; 2021: 13708-13717.
