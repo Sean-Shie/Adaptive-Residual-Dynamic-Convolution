@@ -102,7 +102,7 @@ ARDC-Conv 證明了卷積算子的數學重構在淺層網路中的關鍵性 。
 ---
 
 ## 📚 參考文獻
-* [1]	LeCun Y, Bottou L, Bengio Y et al: Gradient-Based Learning Applied to Document Recognition. In: Proceedings of the IEEE. vol. 86; 1998: 2278--2324.
+* [1]	LeCun Y, Bottou L, Bengio Y et al: Gradient-Based Learning Applied to Document Recognition. In: Proceedings of the IEEE. vol. 86; 1998: 2278-2324.
 * [2]	Krizhevsky A, Hinton G: Learning multiple layers of features from tiny images. In.; 2009.
 * [3]	Brabandere BD, Jia X, Tuytelaars T et al: Dynamic filter networks. In: Proceedings of the 30th International Conference on Neural Information Processing Systems. Barcelona, Spain: Curran Associates Inc.; 2016: 667–675.
 * [4]	Yang B, Bender G, Le QV et al: CondConv: conditionally parameterized convolutions for efficient inference. Red Hook, NY: Curran Associates Inc.; 2019.
