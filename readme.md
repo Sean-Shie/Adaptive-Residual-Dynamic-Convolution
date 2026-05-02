@@ -11,7 +11,6 @@
 <div align="center">
   <img src="./results/ARDC_Conv_Architecture.png" width="100%">
 </div>
----
 
 ## ✨ 核心設計特性
 
