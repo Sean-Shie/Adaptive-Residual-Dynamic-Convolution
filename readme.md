@@ -70,7 +70,7 @@ from models import ARDC_Conv
 
 # 替換標準的 nn.Conv2d
 # in_channels=64, out_channels=128, kernel_size=3
-self.conv = ARDCConv(in_channels=64, out_channels=128, kernel_size=3, padding=1, num_kernels=4)
+self.conv = ARDC_Conv(in_channels=64, out_channels=128, kernel_size=3, padding=1)
 ```
 
 ### 訓練腳本
