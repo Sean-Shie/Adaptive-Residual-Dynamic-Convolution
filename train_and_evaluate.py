@@ -185,7 +185,6 @@ def cutmix_data(x, y, alpha=1.0):
 
     batch_size = x.size(0)
 
-    # ★ 關鍵修正：使用 x.device
     rand_index = torch.randperm(
         batch_size,
         device=x.device
