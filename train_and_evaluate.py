@@ -35,6 +35,7 @@ os.makedirs(CHECKPOINT_DIR, exist_ok=True)
 DEVICE = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 cifar10_classes = ['airplane', 'automobile', 'bird', 'cat', 'deer',
         'dog', 'frog', 'horse', 'ship', 'truck']
+
 # =========================
 # Config
 # =========================
@@ -367,7 +368,7 @@ def train_one_epoch(model, loader, optimizer, criterion, use_mixup_cutmix=False)
 
     return total_loss / len(pbar), train_loss, train_acc
 
-def evaluate_old(model, loader, criterion):
+def evaluate(model, loader, criterion):
     model.eval()
     correct = 0
     total = 0
@@ -392,7 +393,7 @@ def evaluate_old(model, loader, criterion):
 
     return val_loss, val_acc
 
-def evaluate(model, loader):
+def evaluate_only(model, loader):
     y_true, y_pred, y_prob = evaluate_model(model, loader, DEVICE)
 
     compute_metrics(y_true, y_pred)
@@ -537,18 +538,15 @@ def run_experiment(model_class, name, cfg, trainloader, testloader, criterion, r
         "val_acc": []
     }
 
-    # ... 原有的 model 與 optimizer 定義 ...
     if isinstance(model_class, nn.Module):
         model = model_class.to(DEVICE)
     else:
         model = model_class().to(DEVICE)
 
-    # 建議使用 AdamW 配合 MLP/Transformer 架構
-    # SGD for ResNet
     optimizer = optim.AdamW(model.parameters(), lr=cfg.lr, weight_decay=0.05)
     #optimizer = optim.SGD(model.parameters(), lr=cfg.lr, momentum=0.9, weight_decay=5e-4)
 
-    # --- 新增：定義 Scheduler ---
+    # --- 定義 Scheduler ---
     # T_max 通常設定為總 Epoch 數
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=cfg.epochs)
     # ----------------------------
@@ -556,20 +554,18 @@ def run_experiment(model_class, name, cfg, trainloader, testloader, criterion, r
     start_epoch = 0
     best_acc = 0.0
 
-    # 🔹 Resume 邏輯
+    # Resume 邏輯
     if resume:
-        # 注意：如果載入舊進度，也要載入 scheduler 的狀態
         old_start_epoch, best_acc = load_checkpoint(model, optimizer, name)
         print(F'Best Acc for {name}: {best_acc:.4f}')
-        # 如果您的 load_checkpoint 有儲存 scheduler，此處應更新
 
     if test_only:
-        evaluate(model, testloader)
+        evaluate_only(model, testloader)
         return model
 
     for epoch in range(start_epoch, cfg.epochs):
         loss, train_loss, train_acc = train_one_epoch(model, trainloader, optimizer, criterion, use_mixup_cutmix=True)
-        val_loss, val_acc = evaluate_old(model, testloader, criterion)
+        val_loss, val_acc = evaluate(model, testloader, criterion)
 
         # =========================
         # SAVE HISTORY
@@ -579,7 +575,7 @@ def run_experiment(model_class, name, cfg, trainloader, testloader, criterion, r
         history["val_loss"].append(val_loss)
         history["val_acc"].append(val_acc)
 
-        # --- 新增：更新 Scheduler ---
+        # 更新 Scheduler ---
         # 每個 Epoch 結束後執行一次 step
         scheduler.step()
         # ----------------------------
@@ -595,7 +591,7 @@ def run_experiment(model_class, name, cfg, trainloader, testloader, criterion, r
 
     plot_training_curves(history)
 
-    # 建議：先建立資料夾（若不存在）
+    # 先建立資料夾（若不存在）
     save_dir = "./results"
     os.makedirs(save_dir, exist_ok=True)
 
